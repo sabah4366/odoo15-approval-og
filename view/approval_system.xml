@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+
+        <record id="view_purchase_approval_form" model="ir.ui.view">
+            <field name="name">purchase.approval.form</field>
+            <field name="model">purchase.approval</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div>
+                                <group>
+                                    <field name="approval"/>
+                                    <field name="approval_levels"/>
+                                </group>
+                            </div>
+                            <div>
+                                <group>
+                                    <field name="approval_model_id" widget="many2many_tags"/>
+                                    <field name="need_approval"/>
+                                </group>
+                            </div>
+                        </group>
+                        <notebook>
+                            <page string="Levels">
+                                <field name="level_ids" widget="one2many_list">
+                                    <tree editable="bottom">
+                                        <field name="level"/>
+                                        <field name="user_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_purchase_approval_tree" model="ir.ui.view">
+            <field name="name">purchase.approval.tree</field>
+            <field name="model">purchase.approval</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="approval"/>
+                    <field name="approval_model_id"/>
+                    <field name="approval_levels"/>
+                </tree>
+            </field>
+        </record>
+
+<!--        <record id="menu_approval_system" model="ir.ui.menu">-->
+<!--            <field name="name">Purchase Approval</field>-->
+<!--            <field name="sequence" eval="30"/>-->
+<!--            <field name="parent_id" ref="purchase.menu_purchase_config"/>-->
+<!--            <field name="action" ref="menu_action_approval_system"/>-->
+<!--        </record>-->
+
+
+        <record id="menu_action_approval_system" model="ir.actions.act_window">
+            <field name="name">Purchase Approval System</field>
+            <field name="res_model">purchase.approval</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to manage purchase approvals.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_approval_system"
+                  parent="purchase.menu_purchase_config" sequence="5"
+                  name="Purchase Approval"
+                  action="menu_action_approval_system"
+        />
+
+    </data>
+</odoo>
